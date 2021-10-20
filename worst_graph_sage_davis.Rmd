@@ -1,0 +1,50 @@
+---
+title: "Ugly Data - Space Launches"
+author: "Sage Davis"
+date: "10/13/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(janitor)
+```
+
+### Data In
+
+```{r}
+sp_launches <- read.csv(here("data", "space_launches.csv"))
+
+view(sp_launches)
+```
+
+
+
+
+```{r}
+# Make new data file for Mission
+launch <- sp_launches %>% 
+  filter(type %in% c("Delta 4H", "H11B", "Tsiklon-2")) %>% 
+  group_by(mission)
+
+```
+
+
+
+Plot away
+
+```{r}
+ggplot(data = launch, aes(x = launch_year, y = mission)) +
+  geom_jitter(fill = "green",
+           color = "purple",
+           bins = 100) 
+
+  
+
+
+```
+
+
+
